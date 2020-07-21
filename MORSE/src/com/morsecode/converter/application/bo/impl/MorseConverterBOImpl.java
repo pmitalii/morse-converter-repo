@@ -10,7 +10,7 @@ import com.morsecode.converter.application.bo.MorseConverterBO;
  * 
  */
 public class MorseConverterBOImpl implements MorseConverterBO {
-	
+
 	/* (non-Javadoc)
 	 * @see com.morsecodeconverterwithinterface.MorseConverterBO#toMcode(java.lang.String)
 	 */
@@ -25,13 +25,13 @@ public class MorseConverterBOImpl implements MorseConverterBO {
 		return message;
 
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see com.morsecodeconverterwithinterface.MorseConverterBO#toEng(java.lang.String)
 	 */
 	@Override
 	public String toEng(String message) {
-		
+
 		for(int i=0; i < engDashDot.length; i++) {
 			message=message.replace(engDashDot[i], englishAlphabets[i]);
 		}

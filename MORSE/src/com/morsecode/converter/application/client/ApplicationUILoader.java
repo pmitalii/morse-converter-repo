@@ -42,7 +42,7 @@ public class ApplicationUILoader implements ActionListener {
 	 */
 	public void loadApplicationUI() {
 		JFrame f = new JFrame("Morse Code Translater");
-		
+
 
 		l3 = new JLabel("INTERNATIONAL MORSE CODE CONVERTER");
 		l3.setBounds(60, -20, 200, 90);
