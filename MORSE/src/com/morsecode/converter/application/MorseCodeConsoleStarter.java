@@ -15,6 +15,15 @@ import com.morsecode.converter.application.bo.impl.MorseConverterBOImpl;
  */
 public class MorseCodeConsoleStarter {
 
+	//add validations and make changes in this client as per the swing client 
+	//on 22-july-2020
+	
+	//add sound into this application
+	
+	// modify this project to maven
+	
+	// convert to spring project and test with postman
+	
 	public static void main(String[] args) {
 
 		MorseConverterBO obj1 = new MorseConverterBOImpl();
