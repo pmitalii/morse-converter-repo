@@ -6,18 +6,18 @@ package com.morsecode.converter.application.bo;
  */
 public interface MorseConverterBO {
 
-	String morseDashDot[] = { ".- ", "-... ", "-.-. ", "-.. ", ". ", "..-. ", "--. ", ".... ", ".. ", 
+	String morseDashDotArray[] = { ".- ", "-... ", "-.-. ", "-.. ", ". ", "..-. ", "--. ", ".... ", ".. ", 
 			".--- ", "-.- ", ".-.. ", "-- ", "-. ", "--- ", ".---. ", "--.- ", ".-. ",
 			"... ", "- ", "..- ", "...- ", ".-- ", "-..- ", "-.-- ", "--.. "};
 
-	String[] morseAlphabets = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
+	String[] morseAlphabetsArray = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
 			"m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", 
 			"y", "z"};
 
-	String[] engDashDot = {"-...","-.-.","....","..-.",".---",".-..",".--.","--.-","...-","-..-",
+	String[] engDashDotArray = {"-...","-.-.","....","..-.",".---",".-..",".--.","--.-","...-","-..-",
 			"-.--","--..","-..","--.","...","-.-","---",".-.","..-",".--",".-","..","--","-.",".","-"," ","  "};
 
-	String[] englishAlphabets = { "b","c","h","f","j","l","p","q","v","x","y","z","d","g","s","k",
+	String[] englishAlphabetsArray = { "b","c","h","f","j","l","p","q","v","x","y","z","d","g","s","k",
 			"o","r","u","w","a","i","m","n","e","t",""," "};
 
 	/**
@@ -27,7 +27,7 @@ public interface MorseConverterBO {
 	 * @param message
 	 * @return morse code message
 	 */
-	public String toMcode(String message);
+	public String toMorseCode(String message);
 
 
 	/**
@@ -37,7 +37,7 @@ public interface MorseConverterBO {
 	 * @param message
 	 * @return message in english 
 	 */
-	public String toEng(String message);
+	public String toEnglishLanguage(String message);
 
 
 }

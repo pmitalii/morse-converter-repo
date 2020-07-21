@@ -1,7 +1,10 @@
 package com.morsecode.converter.application.client;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,10 +24,14 @@ import com.morsecode.converter.application.bo.impl.MorseConverterBOImpl;
  */
 public class ApplicationUILoader implements ActionListener {
 
+	public static final String MORSE_REGEX = "[.-]{1,5}(?> [.-]{1,5})*(?>   [.-]{1,5}(?> [.-]{1,5})*)*";
+	public static final String MORSE_FIELD_ERROR = "ERROR: Expected morse in field";
+	public static final String ENGLISH_FIELD_ERROR = "ERROR: Expected alphabets in field";
+
 	private MorseConverterBO converterHelper;  
-	private JLabel l1, l2, l3;
-	private JTextField tf1, tf2;
-	private JButton b1;
+	private JLabel englishLabel, morseLable, headerText, errorString;
+	private JTextField englishTextField, morseTextField;
+	private JButton convertButton;
 
 	/**
 	 * Initializes applications Swing UI
@@ -40,38 +47,63 @@ public class ApplicationUILoader implements ActionListener {
 	 * of this application
 	 * 
 	 */
+	@SuppressWarnings("deprecation")
 	public void loadApplicationUI() {
-		JFrame f = new JFrame("Morse Code Translater");
+		errorString = new JLabel("");
+		errorString.setBounds(50,225,200,30);
+		errorString.setForeground(Color.RED);
 
 
-		l3 = new JLabel("INTERNATIONAL MORSE CODE CONVERTER");
-		l3.setBounds(60, -20, 200, 90);
+		JFrame f = new JFrame("MORSE");
 
-		l1 = new JLabel("INPUT :");
-		l1.setBounds(50, 40, 100, 25);
-		tf1 = new JTextField();
-		tf1.setBounds(50, 70, 200, 30);
+		headerText = new JLabel("INTERNATIONAL MORSE CODE CONVERTER");
+		headerText.setBounds(30, -20, 300, 90);
 
-		l2 = new JLabel("OUTPUT :");
-		l2.setBounds(50, 120, 100, 25);
-		tf2 = new JTextField();
-		tf2.setBounds(50,150,200,30);
-		tf2.setEditable(false);
+		englishLabel = new JLabel("English :");
+		englishLabel.setBounds(50, 40, 100, 25);
+		englishTextField = new JTextField();
+		englishTextField.setBounds(50, 70, 200, 30);
 
-		b1 = new JButton("Convert");
-		b1.setBounds(50,200,100,50);
+		englishTextField.addFocusListener(new FocusListener() {
+			@Override
+			public void focusLost(FocusEvent e) {}
+			@Override
+			public void focusGained(FocusEvent e) {
+				morseTextField.setText("");
+				convertButton.setLabel("Convert to Morse");
+			}
+		});
 
-		b1.addActionListener(this);
+		morseLable = new JLabel("Morse :");
+		morseLable.setBounds(50, 170, 100, 25);
+		morseTextField = new JTextField();
+		//	morseTextField.setBounds(50,150,200,30);
+		morseTextField.setBounds(50,200,200,30);
+		//morseTextField.setEditable(false);
+		morseTextField.addFocusListener(new FocusListener() {
+			@Override
+			public void focusLost(FocusEvent e) {}
+			@Override
+			public void focusGained(FocusEvent e) {
+				englishTextField.setText("");
+				convertButton.setLabel("Convert to English");
+			}
+		});
 
-		f.add(l3);
-		f.add(l1);
-		f.add(l2);
-		f.add(tf1);
-		f.add(tf2);
-		f.add(b1);
+		convertButton = new JButton("Convert");
+		convertButton.setBounds(50,125,200,40);
 
+		convertButton.addActionListener(this);
 
-		f.setSize(300,300);
+		f.add(headerText);
+		f.add(englishLabel);
+		f.add(morseLable);
+		f.add(convertButton);
+		f.add(englishTextField);
+		f.add(morseTextField);
+		f.add(errorString);
+
+		f.setSize(320,300);
 
 		f.setLayout(null);
 		f.setVisible(true);
@@ -81,23 +113,33 @@ public class ApplicationUILoader implements ActionListener {
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	public void actionPerformed(ActionEvent e) {
+		errorString.setText("");
+		String englishString = englishTextField.getText();
+		String morseCode = morseTextField.getText();
 
-		String result = "";
-		String message = tf1.getText();
+		if(e.getSource() == convertButton) {
 
-		message= message.toLowerCase();
-
-		if(e.getSource() == b1) {
-
-			if (message.contains(".") || message.contains("-")) {
-				String translate = converterHelper.toEng(message);
-				result = String.valueOf(translate);
-				tf2.setText(result);
-
+			if(null != morseTextField && 
+					(null != morseCode && !morseCode.isEmpty())) {
+				if(morseCode.matches(MORSE_REGEX)
+						&& (morseCode.contains(".") || morseCode.contains("-"))) {
+					String translate = converterHelper.toEnglishLanguage(morseCode);
+					englishTextField.setText(translate);
+				} else {
+					errorString.setText(MORSE_FIELD_ERROR);
+					System.out.println(MORSE_FIELD_ERROR);
+				}
 			} else {
-				String translate = converterHelper.toMcode(message);
-				result = String.valueOf(translate);
-				tf2.setText(result);
+				if(null != englishString) {
+					if(!englishString.contains(".") && !englishString.contains("-") && englishString.matches("([a-z])+")) {
+						englishString = englishString.toLowerCase();
+						String translate = converterHelper.toMorseCode(englishString);
+						morseTextField.setText(translate);
+					} else {
+						errorString.setText(ENGLISH_FIELD_ERROR);
+						System.out.println(ENGLISH_FIELD_ERROR);
+					}
+				}
 			}
 		}
 

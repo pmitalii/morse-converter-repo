@@ -15,10 +15,10 @@ public class MorseConverterBOImpl implements MorseConverterBO {
 	 * @see com.morsecodeconverterwithinterface.MorseConverterBO#toMcode(java.lang.String)
 	 */
 	@Override
-	public String toMcode(String message) {
+	public String toMorseCode(String message) {
 
-		for(int i=0; i < morseDashDot.length; i++) {
-			message = message.replace(morseAlphabets[i], morseDashDot[i]);
+		for(int i=0; i < morseDashDotArray.length; i++) {
+			message = message.replace(morseAlphabetsArray[i], morseDashDotArray[i]);
 		}
 		message = message.trim();
 		System.out.println(message);
@@ -30,10 +30,10 @@ public class MorseConverterBOImpl implements MorseConverterBO {
 	 * @see com.morsecodeconverterwithinterface.MorseConverterBO#toEng(java.lang.String)
 	 */
 	@Override
-	public String toEng(String message) {
+	public String toEnglishLanguage(String message) {
 
-		for(int i=0; i < engDashDot.length; i++) {
-			message=message.replace(engDashDot[i], englishAlphabets[i]);
+		for(int i=0; i < engDashDotArray.length; i++) {
+			message=message.replace(engDashDotArray[i], englishAlphabetsArray[i]);
 		}
 		System.out.println(message);
 		return message;

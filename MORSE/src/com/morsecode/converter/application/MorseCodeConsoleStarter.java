@@ -25,10 +25,10 @@ public class MorseCodeConsoleStarter {
 		message = sc.nextLine();
 
 		if(message.contains(".") || message.contains("-")) {
-			obj1.toEng(message);
+			obj1.toEnglishLanguage(message);
 		}else {
 			message = message.toLowerCase();
-			obj1.toMcode(message);
+			obj1.toMorseCode(message);
 		}
 		sc.close();
 	}

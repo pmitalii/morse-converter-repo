@@ -13,7 +13,6 @@ public class MorseCodeSwingStarter {
 
 	public static void main(String []args) {
 		new ApplicationUILoader();
-
 	}
 
 }
